@@ -1,4 +1,4 @@
-use std::io;
+use std::{io, cmp::Ordering};
 
 use rand::Rng;
 
@@ -6,7 +6,7 @@ fn main() {
     println!("Guess the number!");
 
     // 乱数の生成
-    let secret_number: i32 = rand::thread_rng().gen_range(1..101);
+    let secret_number = rand::thread_rng().gen_range(1..101);
 
     println!("The secret number is: {}", secret_number);
 
@@ -22,5 +22,16 @@ fn main() {
         .read_line(&mut guess)
         .expect("Failed to read line"); // エラーメッセージ
 
+    // Stringインスタンスのtrimメソッドは文字列の先頭と末尾の空白をすべて削除する
+    let guess: u32 = guess.trim().parse()
+        .expect("Please type a number!");
+
     println!("You guessed: {}", guess);
+
+    // 予想と秘密の数を比較
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => println!("You win!"),
+    }
 }

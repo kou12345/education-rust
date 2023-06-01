@@ -1,3 +1,8 @@
+mod numerical_operation;
+mod compound_type;
+
 fn main() {
-    println!("Hello, world!");
+    numerical_operation::numerical_operation();
+    compound_type::tuple_type();
+    compound_type::array_type();
 }
